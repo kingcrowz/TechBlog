@@ -1,0 +1,17 @@
+[
+    {
+        "title": "brendan's post",
+        "description": "new post, hellowrold",
+        "user_id": 1
+    },
+    {
+        "title": "new post hello",
+        "description": "new post, hellowrold, its me!",
+        "user_id": 2
+    },
+    {
+        "title": "final test post",
+        "description": "done",
+        "user_id": 3
+    }
+]

@@ -1,0 +1,17 @@
+[
+    {
+        "response": "this is a great post",
+        "user_id": 2,
+        "post_id": 1
+    },
+    {
+        "response": "this is a bad post",
+        "user_id": 1,
+        "post_id": 2
+    },
+    {
+        "response": "this is an average post",
+        "user_id": 3,
+        "post_id": 2
+    }
+]
