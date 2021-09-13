@@ -1,11 +1,11 @@
 const router = require('express').Router();
-const { Project, User } = require('../models');
+const { Post, User, Comment } = require('../models');
 const withAuth = require('../utils/auth');
 
 router.get('/', async (req, res) => {
   try {
     // Get all projects and JOIN with user data
-    const projectData = await Project.findAll({
+    const projectData = await Post.findAll({
       include: [
         {
           model: User,
@@ -29,17 +29,21 @@ router.get('/', async (req, res) => {
 
 router.get('/project/:id', async (req, res) => {
   try {
-    const projectData = await Project.findByPk(req.params.id, {
+    const projectData = await Post.findByPk(req.params.id, {
       include: [
         {
           model: User,
-          attributes: ['name'],
         },
+        {
+          model: Comment,
+          include: [User]
+        }
       ],
     });
 
     const project = projectData.get({ plain: true });
-
+    console.log('**************');
+    console.log(project);
     res.render('project', {
       ...project,
       logged_in: req.session.logged_in
@@ -52,14 +56,16 @@ router.get('/project/:id', async (req, res) => {
 // Use withAuth middleware to prevent access to route
 router.get('/profile', withAuth, async (req, res) => {
   try {
+    console.log("passed auth");
     // Find the logged in user based on the session ID
     const userData = await User.findByPk(req.session.user_id, {
       attributes: { exclude: ['password'] },
-      include: [{ model: Project }],
+      include: [{ model: Post }],
     });
 
     const user = userData.get({ plain: true });
-
+    console.log("*******");
+    console.log(user);
     res.render('profile', {
       ...user,
       logged_in: true
@@ -78,5 +84,19 @@ router.get('/login', (req, res) => {
 
   res.render('login');
 });
+
+router.get('/edit/:id', withAuth, async (req, res) => {
+  try {
+    const postData = await Post.findByPk(req.params.id);
+    const edit = postData.get({ plain: true });
+    console.log(edit);
+    res.render('editPost', {
+      edit
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+})
+
 
 module.exports = router;

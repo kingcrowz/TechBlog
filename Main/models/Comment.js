@@ -23,6 +23,11 @@ Comment.init(
               key: 'id',
             },
           },
+          date_created: {
+            type: DataTypes.DATE,
+            allowNull: false,
+            defaultValue: DataTypes.NOW,
+          },
         post_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
@@ -37,7 +42,7 @@ Comment.init(
         timestamps: true,
         freezeTableName: true,
         underscored: true,
-        modelName: 'post',
+        modelName: 'comment',
     }
 );
 
