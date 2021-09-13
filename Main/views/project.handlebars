@@ -3,8 +3,15 @@
   <p>{{{get_emoji}}}</p>
   <p>{{description}}</p>
   <p>Created by {{user.name}} on : {{date_created}}</p>
+  <div>
+    <p>Add a comment</p>
+    <textarea id="addCom"></textarea>
+    <button id="addComBtn" data-id="{{post.id}}" user-id="{{post.user_id}}">Submit</button>
+  </div>
   {{#each comments}}
   <p>***********</p>
   <p>{{response}}</p>
   {{/each}}
 </div>
+
+<script src='/js/comment.js'></script>

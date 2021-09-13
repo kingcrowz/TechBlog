@@ -1,7 +1,7 @@
 console.log("connected");
 const editBtn = document.querySelector('#editBtn');
 
-function editInfo(event) {
+async function editInfo(event) {
     event.preventDefault();
     console.log("inside");
     const newTitle = document.querySelector('#editTitle');
@@ -10,7 +10,7 @@ function editInfo(event) {
     if(newTitle && newDesc){
         const res = await fetch(`/api/projects/${id}`, {
             method: 'PUT',
-            body: JSON.stringify({ newTitle, newDesc}),
+            body: JSON.stringify({ title: newTitle, description: newDesc}),
             headers: { 'Content-Type': 'application/json' },
         });
         if(res.ok){
